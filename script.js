@@ -23,11 +23,12 @@ const argv = require('yargs')
   .option('pg', {
     alias: 'page',
     type: 'number',
-    describe: 'Number of a page'
+    describe: 'Number of a page',
+    default: 1
   })
   .help('h').argv;
 
 const { token, projectId, username, page } = argv;
-const gitlabApi = new GitlabAPI(token);
+const gitlabApi = new GitlabAPI(token, projectId, username, page);
 
-!!page ? gitlabApi.getPipelinesStatus(username, projectId, page) : gitlabApi.getPipelinesStatus(username, projectId);
+gitlabApi.getPipelinesStatus();

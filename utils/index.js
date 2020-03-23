@@ -45,9 +45,9 @@ module.exports.status = (data, username) => {
     0
   );
 
-  const combined = `Date: ${formattedDate()}, Successful: ${success}, Failed/Cancelled: ${total - success}, Total: ${total}`;
+  const output = `Date: ${formattedDate()}, Successful: ${success}, Failed/Cancelled: ${total - success}, Total: ${total}`;
 
-  toCsv(combined, username);
+  toCsv(output, username);
 
-  console.log(combined);
+  console.log(output);
 };

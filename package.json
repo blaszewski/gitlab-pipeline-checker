@@ -1,0 +1,22 @@
+{
+  "name": "gitlab-pipeline-checker",
+  "version": "1.0.0",
+  "description": "Simple script to check pipeline status for each merge request triggered by user",
+  "bin": {
+    "pipeline-checker": "script.js"
+  },
+  "author": "Bartosz Laszewski",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "parse-link-header": "^1.0.1",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "prettier": "2.0.1"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}

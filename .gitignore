@@ -70,5 +70,4 @@ yarn-error.log
 # Webstorm
 .idea
 .prettierignore
-.prettierrc
 csv

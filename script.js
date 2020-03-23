@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-require('dotenv').config();
 const GitlabAPI = require('./api/gitlab');
 const argv = require('yargs')
   .usage('Usage: $0 [options]')

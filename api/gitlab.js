@@ -5,6 +5,7 @@ const failed = require('../utils/printFailedUrls');
 
 module.exports = class GitlabAPI {
   allData = [];
+  projectApi = 'https://gitlab.com/api/v4/projects';
 
   constructor(privateAccessToken) {
     this._privateAccessToken = privateAccessToken;
@@ -14,7 +15,7 @@ module.exports = class GitlabAPI {
     try {
       await axios
         .get(
-          `${process.env.GITLAB_PROJECT_API}/${projectId}/pipelines?private_token=${this._privateAccessToken}&username=${username}&per_page=100&page=${page}`
+          `${this.projectApi}/${projectId}/pipelines?private_token=${this._privateAccessToken}&username=${username}&per_page=100&page=${page}`
         )
         .then(({ data, headers }) => {
           this.allData = [...this.allData, ...data];

@@ -29,7 +29,7 @@ Options: `--version`, `-h`, `-t`, `-p`, `-u`, `--pg`
 List of features ready and TODOs for future development
 * Get all project's pipeline triggered by a user
 * Save output to a `.csv` file
-* List URLs to all failed pipelines
+* List URLs of all failed pipelines
 
 To-do list:
 * TBD

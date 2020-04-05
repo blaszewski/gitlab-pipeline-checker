@@ -6,7 +6,7 @@ const convertToCsv = (arr, columns, delimiter = ',') =>
     columns.join(delimiter),
     ...arr.map(obj =>
       columns.reduce(
-        (acc, key) => `${acc}${!acc.length ? '' : delimiter}"${!obj[key] ? '' : obj[key]}"`,
+        (acc, key) => `${acc}${!acc.length ? '' : delimiter}${!obj[key] ? '' : obj[key]}`,
         ''
       )
     )

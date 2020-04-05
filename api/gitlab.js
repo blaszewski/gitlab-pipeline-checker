@@ -25,7 +25,7 @@ module.exports = class GitlabAPI {
           const { next } = parse(headers.link);
           if (!next) {
             failed(this.allData);
-            status(this.allData, this._username);
+            status(this.allData, this._username, this._projectId);
           } else {
             return this.getPipelinesStatus(next.page);
           }

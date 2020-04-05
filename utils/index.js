@@ -1,13 +1,24 @@
 const fs = require('fs');
+const path = require('path');
 
-const toCsv = (dataToWrite, username) => {
-  const writeStream = fs.createWriteStream(`${username}.csv`);
+const convertToCsv = (arr, columns, delimiter = ',') =>
+  [
+    columns.join(delimiter),
+    ...arr.map(obj =>
+      columns.reduce(
+        (acc, key) => `${acc}${!acc.length ? '' : delimiter}"${!obj[key] ? '' : obj[key]}"`,
+        ''
+      )
+    )
+  ].join('\n');
 
-  let line = [];
+const writeAsCsv = (dataToWrite, username, projectId) => {
+  const writeStream = fs.createWriteStream(path.join(__dirname, `../csv/${projectId}.${username}.csv`));
 
-  line.push(dataToWrite);
+  const columns = Object.keys(dataToWrite[0]);
+  const convertedData = convertToCsv(dataToWrite, columns);
 
-  writeStream.write(line.join(', '), (err) => {
+  writeStream.write(convertedData, (err) => {
     if (err) {
       throw err;
     }
@@ -33,12 +44,12 @@ const formattedDate = () => {
 };
 
 module.exports.failed = (data) => {
-  const filterData = data.filter(({ status }) => status === 'failed');
-  console.log(filterData.map(({ web_url }) => web_url));
+  const filterData = data.filter(({status}) => status === 'failed');
+  console.log(filterData.map(({web_url}) => web_url));
 };
 
 
-module.exports.status = (data, username) => {
+module.exports.status = (data, username, projectId) => {
   const total = data.length;
   const success = data.reduce(
     (acc, cur) => (cur.status === 'success' ? ++acc : acc),
@@ -47,7 +58,7 @@ module.exports.status = (data, username) => {
 
   const output = `Date: ${formattedDate()}, Successful: ${success}, Failed/Cancelled: ${total - success}, Total: ${total}`;
 
-  toCsv(output, username);
+  writeAsCsv(data, username, projectId);
 
   console.log(output);
 };

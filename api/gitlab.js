@@ -7,11 +7,12 @@ const projectApi = 'https://gitlab.com/api/v4/projects';
 module.exports = class GitlabAPI {
   allData = [];
 
-  constructor(privateAccessToken, projectId, username, page) {
-    this._privateAccessToken = privateAccessToken;
+  constructor({ token, projectId, username, page, fileName }) {
+    this._privateAccessToken = token;
     this._projectId = projectId;
     this._username = username;
     this._page = page;
+    this._fileName = fileName;
   }
 
   async getPipelinesStatus(page = this._page) {
@@ -25,7 +26,12 @@ module.exports = class GitlabAPI {
           const { next } = parse(headers.link);
           if (!next) {
             failed(this.allData);
-            status(this.allData, this._username, this._projectId);
+            status({
+              data: this.allData,
+              username: this._username,
+              projectId: this._projectId,
+              fileName: this._fileName,
+            });
           } else {
             return this.getPipelinesStatus(next.page);
           }

@@ -27,10 +27,15 @@ const argv = require('yargs')
       describe: 'Number of a page',
       default: 1,
     },
+    fn: {
+      alias: 'fileName',
+      type: 'string',
+      describe: 'Name of a file',
+    },
   })
   .help('h').argv;
 
-const { token, projectId, username, page } = argv;
-const gitlabApi = new GitlabAPI(token, projectId, username, page);
+const { token, projectId, username, page, fileName } = argv;
+const gitlabApi = new GitlabAPI({ token, projectId, username, page, fileName });
 
 gitlabApi.getPipelinesStatus();
